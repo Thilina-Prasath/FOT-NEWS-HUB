@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "749951585986",
+    "firebase_url": "https://fot-news-hub-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fot-news-hub",
+    "storage_bucket": "fot-news-hub.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749951585986:android:a794bdf9e51c4860a0755b",
+        "android_client_info": {
+          "package_name": "com.example.fotnewshub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbSHUphGcjbixH57V5VyUSRT8jJ9cu2sM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
