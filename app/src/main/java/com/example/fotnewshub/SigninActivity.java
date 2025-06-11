@@ -51,7 +51,7 @@ public class SigninActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         backToHome.setOnClickListener(v -> {
-            startActivity(new Intent(SigninActivity.this, MainActivity.class));
+            startActivity(new Intent(SigninActivity.this, LoginActivity.class));
             finish();
         });
 
