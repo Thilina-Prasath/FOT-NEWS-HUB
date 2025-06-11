@@ -38,7 +38,7 @@
             android:name=".AcademicActivity"
             android:exported="false" />
         <activity
-            android:name=".SportActivity"
+            android:name="fotnewshub.SportActivity"
             android:exported="false" />
         <activity
             android:name=".ForgotPasswordActivity"
