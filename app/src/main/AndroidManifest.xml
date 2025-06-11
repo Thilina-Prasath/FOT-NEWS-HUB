@@ -38,6 +38,9 @@
             android:name=".EventActivity"
             android:exported="false" />
         <activity
+            android:name=".EditInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
