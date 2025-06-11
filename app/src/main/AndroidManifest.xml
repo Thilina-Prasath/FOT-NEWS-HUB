@@ -44,6 +44,9 @@
             android:name=".DevinfoActivity"
             android:exported="false" />
         <activity
+            android:name=".AcademicActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
