@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +25,7 @@ public class SigninActivity extends AppCompatActivity {
     private EditText usernameInput, emailInput, passwordInput, confirmPasswordInput;
     private Button registerButton;
     private ImageView backToHome;
+    private ImageView passwordEye, confirmPasswordEye;
 
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
@@ -33,6 +36,10 @@ public class SigninActivity extends AppCompatActivity {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
 
+    // Track password visibility states
+    private boolean isPasswordVisible = false;
+    private boolean isConfirmPasswordVisible = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +49,18 @@ public class SigninActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
+        // Initialize views
         usernameInput = findViewById(R.id.usernameInput);
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         registerButton = findViewById(R.id.login_btn);
         backToHome = findViewById(R.id.backToHomesign);
+
+        // Initialize password eye icons
+        passwordEye = findViewById(R.id.password_eye);
+        confirmPasswordEye = findViewById(R.id.confirm_password_eye);
+
         progressDialog = new ProgressDialog(this);
 
         backToHome.setOnClickListener(v -> {
@@ -56,6 +69,37 @@ public class SigninActivity extends AppCompatActivity {
         });
 
         registerButton.setOnClickListener(v -> registerUser());
+
+        // Set password eye toggle listeners
+        passwordEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePasswordVisibility(passwordInput, passwordEye, isPasswordVisible);
+                isPasswordVisible = !isPasswordVisible;
+            }
+        });
+
+        confirmPasswordEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePasswordVisibility(confirmPasswordInput, confirmPasswordEye, isConfirmPasswordVisible);
+                isConfirmPasswordVisible = !isConfirmPasswordVisible;
+            }
+        });
+    }
+
+    private void togglePasswordVisibility(EditText editText, ImageView eyeIcon, boolean isCurrentlyVisible) {
+        if (isCurrentlyVisible) {
+            // Hide password
+            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            eyeIcon.setImageResource(android.R.drawable.ic_menu_view);
+        } else {
+            // Show password
+            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            eyeIcon.setImageResource(android.R.drawable.ic_menu_agenda);
+        }
+        // Move cursor to end of text
+        editText.setSelection(editText.getText().length());
     }
 
     private void registerUser() {

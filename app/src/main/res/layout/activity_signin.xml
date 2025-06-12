@@ -14,7 +14,6 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-
         <ImageView
             android:id="@+id/backToHomesign"
             android:layout_width="38dp"
@@ -46,35 +45,77 @@
             android:textColorHint="@color/black"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/passwordInput"
+        <!-- Password Container -->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:background="@drawable/rounded_corner"
-            android:backgroundTint="#707B81"
-            android:inputType="textPassword"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textColorHint="@color/black"
-            android:textSize="20sp"
-            android:padding="18dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp">
 
-        <EditText
-            android:id="@+id/confirmPasswordInput"
+            <EditText
+                android:id="@+id/passwordInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="#707B81"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"
+                android:padding="18dp"
+                android:paddingEnd="48dp" />
+
+            <ImageView
+                android:id="@+id/password_eye"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:src="@android:drawable/ic_menu_view"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Toggle password visibility" />
+
+        </RelativeLayout>
+
+        <!-- Confirm Password Container -->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            android:background="@drawable/rounded_corner"
-            android:backgroundTint="#707B81"
-            android:inputType="textPassword"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textColorHint="@color/black"
-            android:textSize="20sp"
-            android:padding="18dp"
-            android:layout_marginBottom="1dp"/>
+            android:layout_marginBottom="1dp">
+
+            <EditText
+                android:id="@+id/confirmPasswordInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="#707B81"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"
+                android:padding="18dp"
+                android:paddingEnd="48dp" />
+
+            <ImageView
+                android:id="@+id/confirm_password_eye"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:src="@android:drawable/ic_menu_view"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Toggle password visibility" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/password_hint_text"
@@ -110,7 +151,6 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:padding="18dp" />
-
 
     </LinearLayout>
 </ScrollView>
