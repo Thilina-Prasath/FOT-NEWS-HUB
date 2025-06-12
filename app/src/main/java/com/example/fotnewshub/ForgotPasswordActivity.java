@@ -3,6 +3,7 @@ package com.example.fotnewshub;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,9 +25,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     Button changePasswordBtn;
     ImageView backToHome;
     EditText currentPasswordInput, newPasswordInput, confirmNewPasswordInput;
+    ImageView currentPasswordEye, newPasswordEye, confirmNewPasswordEye;
     ProgressDialog progressDialog;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
+
+    private boolean isCurrentPasswordVisible = false;
+    private boolean isNewPasswordVisible = false;
+    private boolean isConfirmNewPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         currentPasswordInput = findViewById(R.id.current_password_input);
         newPasswordInput = findViewById(R.id.new_password_input);
         confirmNewPasswordInput = findViewById(R.id.confirm_new_password_input);
+
+        currentPasswordEye = findViewById(R.id.current_password_eye);
+        newPasswordEye = findViewById(R.id.new_password_eye);
+        confirmNewPasswordEye = findViewById(R.id.confirm_new_password_eye);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -66,6 +76,47 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Set password eye toggle listeners
+        currentPasswordEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePasswordVisibility(currentPasswordInput, currentPasswordEye, isCurrentPasswordVisible);
+                isCurrentPasswordVisible = !isCurrentPasswordVisible;
+            }
+        });
+
+        newPasswordEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePasswordVisibility(newPasswordInput, newPasswordEye, isNewPasswordVisible);
+                isNewPasswordVisible = !isNewPasswordVisible;
+            }
+        });
+
+        confirmNewPasswordEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePasswordVisibility(confirmNewPasswordInput, confirmNewPasswordEye, isConfirmNewPasswordVisible);
+                isConfirmNewPasswordVisible = !isConfirmNewPasswordVisible;
+            }
+        });
+    }
+
+    private void togglePasswordVisibility(EditText editText, ImageView eyeIcon, boolean isCurrentlyVisible) {
+        if (isCurrentlyVisible) {
+            // Hide password
+            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            // Use system drawable for hidden state
+            eyeIcon.setImageResource(android.R.drawable.ic_menu_view);
+        } else {
+            // Show password
+            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            // Use system drawable for visible state
+            eyeIcon.setImageResource(android.R.drawable.ic_menu_agenda);
+        }
+        // Move cursor to end of text
+        editText.setSelection(editText.getText().length());
     }
 
     private void changePassword() {
