@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -25,10 +26,15 @@ import com.google.firebase.auth.FirebaseUser;
 public class EditInfoActivity extends AppCompatActivity {
 
     private EditText usernameInput, currentPasswordInput, newPasswordInput;
+    private ImageView currentPasswordToggle, newPasswordToggle;
     private SharedPreferences sharedPreferences;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private ProgressDialog progressDialog;
+
+    // Password visibility states
+    private boolean isCurrentPasswordVisible = false;
+    private boolean isNewPasswordVisible = false;
 
     private static final String PREF_NAME = "UserPrefs";
     private static final String KEY_USERNAME = "username";
@@ -53,6 +59,8 @@ public class EditInfoActivity extends AppCompatActivity {
         usernameInput = findViewById(R.id.Username_input);
         currentPasswordInput = findViewById(R.id.current_password_input);
         newPasswordInput = findViewById(R.id.Password_input);
+        currentPasswordToggle = findViewById(R.id.current_password_toggle);
+        newPasswordToggle = findViewById(R.id.new_password_toggle);
         Button updateButton = findViewById(R.id.okButton);
         Button cancelButton = findViewById(R.id.cancelButton);
 
@@ -61,6 +69,9 @@ public class EditInfoActivity extends AppCompatActivity {
 
         // Load current user data
         loadCurrentUserData();
+
+        // Set up password toggles
+        setupPasswordToggles();
 
         backToUserProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +95,48 @@ public class EditInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(EditInfoActivity.this, UserProfileActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+    }
+
+    private void setupPasswordToggles() {
+        // Current password toggle
+        currentPasswordToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCurrentPasswordVisible) {
+                    // Hide password
+                    currentPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    currentPasswordToggle.setImageResource(android.R.drawable.ic_secure);
+                    isCurrentPasswordVisible = false;
+                } else {
+                    // Show password
+                    currentPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    currentPasswordToggle.setImageResource(android.R.drawable.ic_menu_view);
+                    isCurrentPasswordVisible = true;
+                }
+                // Move cursor to end of text
+                currentPasswordInput.setSelection(currentPasswordInput.getText().length());
+            }
+        });
+
+        // New password toggle
+        newPasswordToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isNewPasswordVisible) {
+                    // Hide password
+                    newPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    newPasswordToggle.setImageResource(android.R.drawable.ic_secure);
+                    isNewPasswordVisible = false;
+                } else {
+                    // Show password
+                    newPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    newPasswordToggle.setImageResource(android.R.drawable.ic_menu_view);
+                    isNewPasswordVisible = true;
+                }
+                // Move cursor to end of text
+                newPasswordInput.setSelection(newPasswordInput.getText().length());
             }
         });
     }
