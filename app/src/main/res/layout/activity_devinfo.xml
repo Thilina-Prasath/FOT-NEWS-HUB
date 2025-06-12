@@ -60,7 +60,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Personal Statement :  \n"
+                android:text="Personal Statement : Motivated student with a passion for technology, aiming to grow in skills and contribute to meaningful innovations. \n"
                 android:textAlignment="center"
                 android:textSize="18dp"
                 android:textColor="@color/black"/>
@@ -68,7 +68,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Release Version :\n"
+                android:text="Release Version : v1.2.0\n"
                 android:textAlignment="center"
                 android:textSize="18dp"
                 android:textColor="@color/black"/>
