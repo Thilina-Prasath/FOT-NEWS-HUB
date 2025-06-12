@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +27,13 @@ public class LoginActivity extends AppCompatActivity {
     TextView forgotText, signInText;
     EditText emailInput, Password_input;
     Button loginBtn;
+    ImageView passwordToggle;
     ProgressDialog progressDialog;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     SharedPreferences sharedPreferences;
+
+    private boolean isPasswordVisible = false;
 
     private static final String PREF_NAME = "UserPrefs";
     private static final String KEY_USERNAME = "username";
@@ -44,12 +50,33 @@ public class LoginActivity extends AppCompatActivity {
         emailInput = findViewById(R.id.emailInput);
         Password_input = findViewById(R.id.Password_input);
         loginBtn = findViewById(R.id.login_btn);
+        passwordToggle = findViewById(R.id.password_toggle);
 
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+        // Password visibility toggle
+        passwordToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPasswordVisible) {
+                    // Hide password
+                    Password_input.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    passwordToggle.setImageResource(android.R.drawable.ic_menu_view);
+                    isPasswordVisible = false;
+                } else {
+                    // Show password
+                    Password_input.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    passwordToggle.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
+                    isPasswordVisible = true;
+                }
+                // Move cursor to end of text
+                Password_input.setSelection(Password_input.getText().length());
+            }
+        });
 
         forgotText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,4 +157,3 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
-

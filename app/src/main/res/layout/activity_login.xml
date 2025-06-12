@@ -37,20 +37,40 @@
             android:textColorHint="@color/black"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/Password_input"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_corner"
-            android:backgroundTint="#707B81"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="18dp"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textColorHint="@color/black"
-            android:textSize="20sp" />
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:id="@+id/Password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="#707B81"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="18dp"
+                android:paddingEnd="50dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/black"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/password_toggle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_view"
+                android:contentDescription="Toggle password visibility" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/forgotText"
